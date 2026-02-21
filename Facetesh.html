@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Login Demo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    background:#f0f2f5;
+}
+
+.header{
+    background:#1877f2;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
+}
+
+.container{
+    width:350px;
+    margin:60px auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 2px 15px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+.notice{
+    color:#1877f2;
+    font-weight:600;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+input{
+    width:95%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#1877f2;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    font-weight:600;
+}
+
+#result{
+    margin-top:15px;
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+facebook
+</div>
+
+<div class="container">
+
+<div class="notice">
+เข้าสู่ระบบ
+</div>
+
+<input type="text" id="user" placeholder="Email หรือ Username">
+<input type="password" id="pass" placeholder="Password">
+<button onclick="showData()">Log In</button>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+function showData(){
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
+
+    document.getElementById("result").innerHTML =
+    "ข้อมูลที่กรอก (Demo เท่านั้น):<br>" +
+    "Username: " + u + "<br>Password: " + p;
+}
+</script>
+
+</body>
+</html>
