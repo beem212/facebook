@@ -1,1 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>สำเร็จ</title>
+</head>
+<body style="text-align:center; margin-top:100px; font-family:sans-serif;">
 
+<h1>วันนี้คุณยิ้มแล้วรึยัง 😊</h1>
+<p id="showName"></p>
+
+<script>
+const name = localStorage.getItem("username");
+
+if(name){
+  document.getElementById("showName").innerHTML =
+  "สวัสดี " + name + " 👋";
+}
+</script>
+
+</body>
+</html>
