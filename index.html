@@ -99,13 +99,28 @@ window.saveData = function() {
     timestamp: new Date().toLocaleString()
   })
   .then(() => {
-    alert("บันทึกข้อมูลเรียบร้อย");
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
-  })
+  localStorage.setItem("username", username); // เก็บชื่อไว้
+
+  window.location.href = "success.html"; // เด้งหน้าใหม่
+})
   .catch((error) => {
-    alert("Error: " + error);
-  });
+    alert("Error: " + <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>สำเร็จ</title>
+</head>
+<body style="text-align:center; margin-top:100px; font-family:sans-serif;">
+
+<h1>วันนี้คุณยิ้มแล้วรึยัง 😊</h1>
+<p id="showName"></p>
+
+<script>
+const name = localStorage.getItem("username");
+
+if(name){
+  document.getElementById("showName").innerHTML =
+  "สวัสดี " + name + " 👋";
 }
 </script>
 
